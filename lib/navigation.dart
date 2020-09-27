@@ -1,6 +1,7 @@
-import 'package:ecological_news/scenes/bootstrap.dart';
-import 'package:ecological_news/scenes/main.dart';
 import 'package:flutter/material.dart';
+import 'package:ecological_news/scenes/main.dart';
+import 'package:ecological_news/scenes/bootstrap.dart';
+import 'package:ecological_news/scenes/new_details.dart';
 
 class Navigation {
   static Route<dynamic> routes(RouteSettings settings) {
@@ -9,8 +10,8 @@ class Navigation {
         return MaterialPageRoute(builder: (_) => BootstrapScene());
       case '/home':
         return MaterialPageRoute(builder: (_) => MainScene());
-      // case '/news':
-      //   return MaterialPageRoute(builder: (_) => PersonDataScene());
+      case '/news':
+        return MaterialPageRoute(builder: (_) => NewsDetailsScene());
       default:
         return _errorRoute();
     }

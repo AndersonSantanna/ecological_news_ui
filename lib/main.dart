@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: '/home',
+      initialRoute: '/news',
       onGenerateRoute: Navigation.routes,
     );
   }

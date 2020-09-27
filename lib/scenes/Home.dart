@@ -49,40 +49,45 @@ class CardCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 320,
-      margin: EdgeInsets.only(right: 15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: Colors.black,
-        image: DecorationImage(
-          image: AssetImage("assets/images/monkey.jpg"),
-          fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed("/news");
+      },
+      child: Container(
+        width: 300,
+        height: 320,
+        margin: EdgeInsets.only(right: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.black,
+          image: DecorationImage(
+            image: AssetImage("assets/images/monkey.jpg"),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 25, left: 10, right: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(bottom: 7),
-              child: Text(
-                "Brazil",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 35,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 25, left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 7),
+                child: Text(
+                  "Brazil",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 35,
+                  ),
                 ),
               ),
-            ),
-            Text(
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
+              Text(
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
