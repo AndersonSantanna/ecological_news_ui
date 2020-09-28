@@ -1,6 +1,8 @@
+import 'package:ecological_news/scenes/news_brazil.dart';
 import 'package:flutter/material.dart';
 import 'package:ecological_news/scenes/Home.dart';
 import 'package:ecological_news/scenes/news_world.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class MainScene extends StatefulWidget {
   MainScene({Key key}) : super(key: key);
@@ -11,15 +13,11 @@ class MainScene extends StatefulWidget {
 
 class _MainSceneState extends State<MainScene> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScene(),
+    NewsBrazilScene(),
     NewsWorldScene(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
   ];
 
   void _onItemTapped(int index) {
@@ -41,12 +39,12 @@ class _MainSceneState extends State<MainScene> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Notícias no mundo',
+            icon: Icon(FontAwesome.newspaper_o),
+            label: 'Notícias Brasil',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Noticias no Brasil',
+            icon: Icon(Fontisto.earth),
+            label: 'Noticias no mundo',
           ),
         ],
         showSelectedLabels: true,
