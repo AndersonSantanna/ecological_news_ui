@@ -19,9 +19,14 @@ class NewsWorldScene extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = items[index];
 
-          return ListTile(
-            title: item.buildTitle(context),
-            subtitle: item.buildSubtitle(context),
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed("/news");
+            },
+            child: ListTile(
+              title: item.buildTitle(context),
+              subtitle: item.buildSubtitle(context),
+            ),
           );
         },
       ),

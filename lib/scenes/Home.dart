@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScene extends StatelessWidget {
@@ -6,6 +7,13 @@ class HomeScene extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.green[800],
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
     return Container(
       width: 500,
       color: Colors.green[800],
@@ -18,7 +26,7 @@ class HomeScene extends StatelessWidget {
               "Noticias Ecologicas",
               style: GoogleFonts.caveat(
                 color: Colors.white,
-                textStyle: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+                textStyle: TextStyle(fontSize: 55, fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -49,6 +57,13 @@ class CardCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed("/news");

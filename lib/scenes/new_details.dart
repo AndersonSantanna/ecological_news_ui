@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NewsDetailsScene extends StatelessWidget {
   const NewsDetailsScene({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+
+    void goBack() {
+      Navigator.pop(context);
+    }
+
     return Material(
       child: Container(
-        width: 360,
+        width: 380,
         height: 200,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -21,13 +34,23 @@ class NewsDetailsScene extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: 300,
+              width: 340,
               height: 200,
               padding: EdgeInsets.only(bottom: 15),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 40),
+                    child: GestureDetector(
+                      onTap: goBack,
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   Text(
                     "Brazil",
                     style: TextStyle(
