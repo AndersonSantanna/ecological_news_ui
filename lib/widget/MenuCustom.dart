@@ -16,7 +16,7 @@ class MenuCustom extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           Text(
-            resume,
+            resume.substring(0, 120) + "...",
             style: TextStyle(fontSize: 13, color: Colors.grey),
           ),
         ],

@@ -1,36 +1,69 @@
+import 'dart:convert';
+
+import 'package:ecological_news/model/NewsWorld.dart';
+import 'package:ecological_news/widget/MenuCustom.dart';
 import 'package:flutter/material.dart';
 
-class NewsWorldScene extends StatelessWidget {
+class NewsWorldScene extends StatefulWidget {
   const NewsWorldScene({Key key}) : super(key: key);
 
   @override
+  _NewsWorldSceneState createState() => _NewsWorldSceneState();
+}
+
+class _NewsWorldSceneState extends State<NewsWorldScene> {
+  NewsWorld newsWorld = new NewsWorld();
+
+  void loadJson() async {
+    String data = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/news.json');
+    print(json.decode(data));
+    setState(() {
+      newsWorld = newsWorldFromJson(data);
+    });
+    print(newsWorld.noticias.length);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadJson();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<ListItem> items = List<ListItem>.generate(
-      1000,
-      (i) => MessageItem("Notice $i", "Message body $i"),
-    );
+    // final List<ListItem> items = List<ListItem>.generate(
+    //   newsWorld.noticias.length,
+    //   (i) => MessageItem(
+    //     newsWorld.noticias[i].titulo,
+    //     newsWorld.noticias[i].resumo,
+    //   ),
+    // );
     return Container(
       color: Colors.white,
       child: ListView.builder(
         // Let the ListView know how many items it needs to build.
-        itemCount: items.length,
+        itemCount: newsWorld.noticias.length,
         // Provide a builder function. This is where the magic happens.
         // Convert each item into a widget based on the type of item it is.
         itemBuilder: (context, index) {
-          final item = items[index];
+          // final item = items[index];
 
           return GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed("/news");
+              Navigator.of(context).pushNamed(
+                "/news",
+                arguments: newsWorld.noticias[index],
+              );
             },
-            child: ListTile(
-              title: item.buildTitle(context),
-              subtitle: item.buildSubtitle(context),
+            child: MenuCustom(
+              title: newsWorld.noticias[index].titulo,
+              resume: newsWorld.noticias[index].resumo,
             ),
           );
         },
       ),
-      // Text("teste")
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:ecological_news/model/BrazilAPI.dart';
 import 'package:ecological_news/widget/MenuCustom.dart';
@@ -19,6 +17,21 @@ class _NewsBrazilSceneState extends State<NewsBrazilScene> {
   BrazilApi brazilApi = new BrazilApi();
 
   void initial() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              new CircularProgressIndicator(),
+              new Text("Loading"),
+            ],
+          ),
+        );
+      },
+    );
     final Xml2Json xml2Json = Xml2Json();
     var dio = Dio();
     Response response = await dio.get(

@@ -30,19 +30,47 @@ class HomeScene extends StatelessWidget {
               ),
             ),
           ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 30.0),
-              height: 320.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  CardCustom(),
-                  CardCustom(),
-                  CardCustom(),
-                ],
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "- Destaque da Semana",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 30.0),
+                  height: 320.0,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CardCustom(
+                        title: "Poluição ",
+                        shortText:
+                            "Um quarto das mortes prematuras e das doenças que proliferam atualmente...",
+                        imgPath: "assets/images/poluicao.jpg",
+                      ),
+                      CardCustom(
+                        imgPath: "assets/images/gasolina.jpg",
+                        title: "Físicos russos",
+                        shortText:
+                            "A equipe científica da Rússia conseguiu decifrar a composição química do...",
+                      ),
+                      CardCustom(
+                        imgPath: "assets/images/vulcao.jpg",
+                        title: "Vulcão na islandia",
+                        shortText:
+                            "Vulcão islandês Katla entrou em erupção pela última vez em 1918 e...",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -51,9 +79,12 @@ class HomeScene extends StatelessWidget {
 }
 
 class CardCustom extends StatelessWidget {
-  const CardCustom({
-    Key key,
-  }) : super(key: key);
+  CardCustom({Key key, @required this.imgPath, this.title, this.shortText})
+      : super(key: key);
+
+  String imgPath;
+  String title;
+  String shortText;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +107,7 @@ class CardCustom extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           color: Colors.black,
           image: DecorationImage(
-            image: AssetImage("assets/images/monkey.jpg"),
+            image: AssetImage(imgPath),
             fit: BoxFit.cover,
           ),
         ),
@@ -89,16 +120,16 @@ class CardCustom extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 7),
                 child: Text(
-                  "Brazil",
+                  title,
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 35,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30,
                   ),
                 ),
               ),
               Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                shortText,
                 style: TextStyle(color: Colors.white),
               ),
             ],
