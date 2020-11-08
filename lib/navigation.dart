@@ -1,4 +1,6 @@
+import 'package:ecological_news/model/New.dart';
 import 'package:ecological_news/model/NewWorld.dart';
+import 'package:ecological_news/scenes/news_details_brazil.dart';
 import 'package:flutter/material.dart';
 import 'package:ecological_news/scenes/main.dart';
 import 'package:ecological_news/scenes/bootstrap.dart';
@@ -12,10 +14,16 @@ class Navigation {
       case '/home':
         return MaterialPageRoute(builder: (_) => MainScene());
       case '/news':
-        print('settings.arguments');
-        Noticia a = settings.arguments as Noticia;
-        print(a.titulo);
-        return MaterialPageRoute(builder: (_) => NewsDetailsScene());
+        Noticia news = settings.arguments as Noticia;
+        return MaterialPageRoute(
+            builder: (_) => NewsDetailsScene(
+                  news: news,
+                ));
+      case '/newsBrazil':
+        NoticiaBrasil news = settings.arguments as NoticiaBrasil;
+        return MaterialPageRoute(
+          builder: (_) => NewsDetailsBrazilScene(news: news),
+        );
       default:
         return _errorRoute();
     }

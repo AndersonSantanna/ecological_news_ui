@@ -1,5 +1,5 @@
-class Noticia {
-  Noticia({
+class NoticiaBrasil {
+  NoticiaBrasil({
     this.id,
     this.titulo,
     this.dataDePublicacao,
@@ -19,7 +19,7 @@ class Noticia {
   String descricao;
   String resumo;
 
-  factory Noticia.fromJson(Map<String, dynamic> json) => Noticia(
+  factory NoticiaBrasil.fromJson(Map<String, dynamic> json) => NoticiaBrasil(
         id: json["id"],
         titulo: json["titulo"],
         dataDePublicacao: json["dataDePublicacao"],

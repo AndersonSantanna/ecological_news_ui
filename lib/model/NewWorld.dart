@@ -4,6 +4,8 @@ class Noticia {
     this.descricao,
     this.resumo,
     this.fonte,
+    this.local,
+    this.image,
     this.dataPublicacao,
   });
 
@@ -11,6 +13,8 @@ class Noticia {
   String descricao;
   String resumo;
   String fonte;
+  String local;
+  String image;
   String dataPublicacao;
 
   factory Noticia.fromJson(Map<String, dynamic> json) => Noticia(
@@ -18,6 +22,8 @@ class Noticia {
         descricao: json["descricao"],
         resumo: json["resumo"],
         fonte: json["fonte"],
+        local: json["local"],
+        image: json["image"],
         dataPublicacao: json["dataPublicacao"],
       );
 
@@ -26,6 +32,8 @@ class Noticia {
         "descricao": descricao,
         "resumo": resumo,
         "fonte": fonte,
+        "local": local,
+        "image": image,
         "dataPublicacao": dataPublicacao,
       };
 }

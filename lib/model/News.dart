@@ -5,11 +5,11 @@ class Noticias {
     this.noticia,
   });
 
-  List<Noticia> noticia;
+  List<NoticiaBrasil> noticia;
 
   factory Noticias.fromJson(Map<String, dynamic> json) => Noticias(
-        noticia:
-            List<Noticia>.from(json["noticia"].map((x) => Noticia.fromJson(x))),
+        noticia: List<NoticiaBrasil>.from(
+            json["noticia"].map((x) => NoticiaBrasil.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

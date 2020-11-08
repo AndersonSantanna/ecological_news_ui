@@ -33,38 +33,37 @@ class _NewsWorldSceneState extends State<NewsWorldScene> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<ListItem> items = List<ListItem>.generate(
-    //   newsWorld.noticias.length,
-    //   (i) => MessageItem(
-    //     newsWorld.noticias[i].titulo,
-    //     newsWorld.noticias[i].resumo,
-    //   ),
-    // );
-    return Container(
-      color: Colors.white,
-      child: ListView.builder(
-        // Let the ListView know how many items it needs to build.
-        itemCount: newsWorld.noticias.length,
-        // Provide a builder function. This is where the magic happens.
-        // Convert each item into a widget based on the type of item it is.
-        itemBuilder: (context, index) {
-          // final item = items[index];
+    if (newsWorld.noticias != null) {
+      return Container(
+        color: Colors.white,
+        child: ListView.builder(
+          // Let the ListView know how many items it needs to build.
+          itemCount: newsWorld.noticias.length,
+          // Provide a builder function. This is where the magic happens.
+          // Convert each item into a widget based on the type of item it is.
+          itemBuilder: (context, index) {
+            // final item = items[index];
 
-          return GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                "/news",
-                arguments: newsWorld.noticias[index],
-              );
-            },
-            child: MenuCustom(
-              title: newsWorld.noticias[index].titulo,
-              resume: newsWorld.noticias[index].resumo,
-            ),
-          );
-        },
-      ),
-    );
+            return GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  "/news",
+                  arguments: newsWorld.noticias[index],
+                );
+              },
+              child: MenuCustom(
+                title: newsWorld.noticias[index].titulo.trim(),
+                resume: newsWorld.noticias[index].resumo,
+              ),
+            );
+          },
+        ),
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
 

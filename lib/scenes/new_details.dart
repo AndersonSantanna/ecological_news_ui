@@ -1,8 +1,36 @@
+import 'dart:convert';
+
+import 'package:ecological_news/model/NewWorld.dart';
+import 'package:ecological_news/model/NewsWorld.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class NewsDetailsScene extends StatelessWidget {
-  const NewsDetailsScene({Key key}) : super(key: key);
+class NewsDetailsScene extends StatefulWidget {
+  NewsDetailsScene({Key key, @required this.news}) : super(key: key);
+  Noticia news;
+  @override
+  _NewsDetailsSceneState createState() => _NewsDetailsSceneState();
+}
+
+class _NewsDetailsSceneState extends State<NewsDetailsScene> {
+  NewsWorld newsWorld = new NewsWorld();
+
+  void loadJson() async {
+    String data = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/news.json');
+    print(json.decode(data));
+    setState(() {
+      newsWorld = newsWorldFromJson(data);
+    });
+    print(newsWorld.noticias.length);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +52,7 @@ class NewsDetailsScene extends StatelessWidget {
         height: 200,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/monkey.jpg"),
+            image: AssetImage(widget.news.image.toString()),
             fit: BoxFit.contain,
             alignment: Alignment.topCenter,
           ),
@@ -52,7 +80,7 @@ class NewsDetailsScene extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Brazil",
+                    widget.news.local,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
@@ -74,23 +102,38 @@ class NewsDetailsScene extends StatelessWidget {
                           topRight: Radius.circular(40)),
                     ),
                     width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: ListView(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 15),
-                          child: Text(
-                            "What is Lorem Ipsum?",
-                            style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.green[700],
-                              fontWeight: FontWeight.w500,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 15),
+                              child: Text(
+                                widget.news.titulo,
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  color: Colors.green[700],
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Text(
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                          style: TextStyle(fontSize: 16),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 13),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("fonte: " + widget.news.fonte),
+                                  Text(widget.news.dataPublicacao),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              widget.news.descricao,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -106,51 +149,5 @@ class NewsDetailsScene extends StatelessWidget {
         ),
       ),
     );
-
-    // ],
-    // );
-    // Container(
-    //   decoration: BoxDecoration(
-    //     image: DecorationImage(
-    //       image: AssetImage("assets/images/monkey.jpg"),
-    //       fit: BoxFit.contain,
-    //       alignment: Alignment.topCenter,
-    //     ),
-    //     color: Colors.green[800],
-    //   ),
-    //   child: Column(
-    //     children: [
-    //       Container(
-    //         child: Column(
-    //           children: [
-    //             Text("teste"),
-    //             Text("teste"),
-    //             Text("teste"),
-    //           ],
-    //         ),
-    //       ),
-    //       // Container(),
-    //     ],
-    //   ),
-    // );
   }
 }
-
-// Expanded(
-//   child: Stack(
-//     children: [
-//       Container(
-//         decoration: BoxDecoration(
-//           color: Colors.green,
-//           borderRadius: BorderRadius.only(
-//               topLeft: Radius.circular(40),
-//               topRight: Radius.circular(40)),
-//         ),
-//       ),
-//       // Container(
-//       //   color: Colors.blueAccent,
-//       //   height: 160,
-//       // )
-//     ],
-//   ),
-// )

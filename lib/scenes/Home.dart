@@ -1,9 +1,37 @@
+import 'dart:convert';
+
+import 'package:ecological_news/model/NewWorld.dart';
+import 'package:ecological_news/model/NewsWorld.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScene extends StatelessWidget {
+class HomeScene extends StatefulWidget {
   const HomeScene({Key key}) : super(key: key);
+
+  @override
+  _HomeSceneState createState() => _HomeSceneState();
+}
+
+class _HomeSceneState extends State<HomeScene> {
+  NewsWorld newsWorld = new NewsWorld();
+
+  void loadJson() async {
+    String data = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/news.json');
+    print(json.decode(data));
+    setState(() {
+      newsWorld = newsWorldFromJson(data);
+    });
+    print(newsWorld.noticias.length);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,77 +42,72 @@ class HomeScene extends StatelessWidget {
         statusBarBrightness: Brightness.dark,
       ),
     );
-    return Container(
-      width: 500,
-      color: Colors.green[800],
-      padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Container(
-            child: Text(
-              "Noticias Ecologicas",
-              style: GoogleFonts.caveat(
-                color: Colors.white,
-                textStyle: TextStyle(fontSize: 55, fontWeight: FontWeight.w700),
+    if (newsWorld.noticias != null) {
+      return Container(
+        width: 500,
+        color: Colors.green[800],
+        padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              child: Text(
+                "Noticias Ecologicas",
+                style: GoogleFonts.caveat(
+                  color: Colors.white,
+                  textStyle:
+                      TextStyle(fontSize: 55, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "- Destaque da Semana",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Center(
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 30.0),
-                  height: 320.0,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CardCustom(
-                        title: "Poluição ",
-                        shortText:
-                            "Um quarto das mortes prematuras e das doenças que proliferam atualmente...",
-                        imgPath: "assets/images/poluicao.jpg",
-                      ),
-                      CardCustom(
-                        imgPath: "assets/images/gasolina.jpg",
-                        title: "Físicos russos",
-                        shortText:
-                            "A equipe científica da Rússia conseguiu decifrar a composição química do...",
-                      ),
-                      CardCustom(
-                        imgPath: "assets/images/vulcao.jpg",
-                        title: "Vulcão na islandia",
-                        shortText:
-                            "Vulcão islandês Katla entrou em erupção pela última vez em 1918 e...",
-                      ),
-                    ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "- Destaque da Semana",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 30.0),
+                    height: 320.0,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        CardCustom(
+                          news: newsWorld.noticias[3],
+                        ),
+                        CardCustom(
+                          news: newsWorld.noticias[4],
+                        ),
+                        CardCustom(
+                          news: newsWorld.noticias[0],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
 
 class CardCustom extends StatelessWidget {
-  CardCustom({Key key, @required this.imgPath, this.title, this.shortText})
-      : super(key: key);
+  CardCustom({Key key, @required this.news}) : super(key: key);
 
-  String imgPath;
-  String title;
-  String shortText;
+  Noticia news;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +120,7 @@ class CardCustom extends StatelessWidget {
     );
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed("/news");
+        Navigator.of(context).pushNamed("/news", arguments: news);
       },
       child: Container(
         width: 300,
@@ -107,7 +130,7 @@ class CardCustom extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           color: Colors.black,
           image: DecorationImage(
-            image: AssetImage(imgPath),
+            image: AssetImage(news.image),
             fit: BoxFit.cover,
           ),
         ),
@@ -120,7 +143,7 @@ class CardCustom extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 7),
                 child: Text(
-                  title,
+                  news.local,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
@@ -129,7 +152,7 @@ class CardCustom extends StatelessWidget {
                 ),
               ),
               Text(
-                shortText,
+                news.resumo.substring(0, 70),
                 style: TextStyle(color: Colors.white),
               ),
             ],
