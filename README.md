@@ -24,3 +24,7 @@ Utilizamos algumas bibliotecas para fazer esse projeto, são elas:
 * [Dio](https://pub.dev/packages/dio)
 * [Xml2json](https://pub.dev/packages/xml2json)
 * [Undraw](https://pub.dev/packages/undraw)
+
+## APK
+
+Link para baixar o aplicativo, [clique aqui](https://drive.google.com/file/d/1p4n0BER9E4sV6nfJe4OUJZQr-lUIikw2/view?usp=sharing)
