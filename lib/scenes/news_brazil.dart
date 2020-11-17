@@ -56,10 +56,7 @@ class _NewsBrazilSceneState extends State<NewsBrazilScene> {
         padding: EdgeInsets.only(top: 15),
         color: Colors.white,
         child: ListView.builder(
-          // Let the ListView know how many items it needs to build.
           itemCount: brazilApi.resultado.noticias.noticia.length,
-          // Provide a builder function. This is where the magic happens.
-          // Convert each item into a widget based on the type of item it is.
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {

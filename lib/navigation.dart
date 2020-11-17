@@ -16,9 +16,10 @@ class Navigation {
       case '/news':
         Noticia news = settings.arguments as Noticia;
         return MaterialPageRoute(
-            builder: (_) => NewsDetailsScene(
-                  news: news,
-                ));
+          builder: (_) => NewsDetailsScene(
+            news: news,
+          ),
+        );
       case '/newsBrazil':
         NoticiaBrasil news = settings.arguments as NoticiaBrasil;
         return MaterialPageRoute(

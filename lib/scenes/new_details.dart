@@ -48,8 +48,8 @@ class _NewsDetailsSceneState extends State<NewsDetailsScene> {
 
     return Material(
       child: Container(
-        width: 380,
-        height: 200,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.26,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(widget.news.image.toString()),
@@ -62,8 +62,8 @@ class _NewsDetailsSceneState extends State<NewsDetailsScene> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: 340,
-              height: 200,
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: MediaQuery.of(context).size.height * 0.22,
               padding: EdgeInsets.only(bottom: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
